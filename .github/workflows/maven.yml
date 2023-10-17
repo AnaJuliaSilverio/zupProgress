@@ -20,6 +20,6 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Change Directory
-      run: cd /zupProgress
+      working-directory: ./zupProgress
     - name: Build with Maven
       run: mvn -B package --file pom.xml
