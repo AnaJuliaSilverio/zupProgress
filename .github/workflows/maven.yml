@@ -19,7 +19,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Change Directory
-      working-directory: ./zupProgress
     - name: Build with Maven
+      working-directory: ./zupProgress
       run: mvn -B package --file pom.xml
