@@ -10,7 +10,6 @@ public class ProjectDTO {
     private String name;
     private String description;
     private String trainingInstitution;
-    private String typeOfDisability;
     //private Instructor instructor;
     //private Leadership leadership;
 

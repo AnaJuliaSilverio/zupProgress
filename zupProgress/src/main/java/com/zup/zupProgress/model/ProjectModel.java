@@ -23,8 +23,6 @@ public class ProjectModel {
     private String description;
     @NotBlank
     private String trainingInstitution;
-    @NotBlank
-    private String typeOfDisability;
     //private Instructor instructor;
     //private Leadership leadership;
 
