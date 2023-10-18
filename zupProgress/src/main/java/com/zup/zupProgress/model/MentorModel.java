@@ -1,10 +1,11 @@
 package com.zup.zupProgress.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "mentor")
@@ -14,9 +15,16 @@ import lombok.NoArgsConstructor;
 public class MentorModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    String name;
-    @Email
-    String email;
+    @Column(name = "id_mentor")
+    private Long idMentor;
+    private String name;
+    private String email;
+    private String bio;
+    @Column(name = "start_mentoring")
+    private LocalDate startMentoring;
+    @Column(name = "end_mentoring")
+    private LocalDate endMentoring;
+    private Boolean training;
+
 
 }
