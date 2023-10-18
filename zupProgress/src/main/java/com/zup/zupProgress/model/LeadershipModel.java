@@ -14,7 +14,7 @@ public class LeadershipModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id_leadership")
     private Long idLeadership;
 
     @Column(nullable = false)
