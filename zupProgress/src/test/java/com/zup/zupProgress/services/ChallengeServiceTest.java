@@ -32,9 +32,9 @@ class ChallengeServiceTest {
     @Test
     void testCreateProject() {
         ChallengeDTO inputDTO = new ChallengeDTO();
-        inputDTO.setName("Test desafio");
+        inputDTO.setTitle("Test desafio");
         ChallengeModel model = new ChallengeModel();
-        model.setName("Test desafio");
+        model.setTitle("Test desafio");
 
         when(modelMapper.map(inputDTO, ChallengeModel.class)).thenReturn(model);
         when(repository.save(model)).thenReturn(model);
@@ -42,7 +42,7 @@ class ChallengeServiceTest {
 
         ChallengeDTO resultDTO = challengeService.createChallenge(inputDTO);
 
-        assertEquals(inputDTO.getName(), resultDTO.getName());
+        assertEquals(inputDTO.getTitle(), resultDTO.getTitle());
     }
 
     @Test
@@ -50,21 +50,21 @@ class ChallengeServiceTest {
         String challengeName = "Buscar desafio";
         ChallengeModel challenge = new ChallengeModel();
         ChallengeDTO challengeDto = new ChallengeDTO();
-        challengeDto.setName(challengeName);
-        challenge.setName(challengeName);
+        challengeDto.setTitle(challengeName);
+        challenge.setTitle(challengeName);
 
         when(modelMapper.map(eq(challenge), eq(ChallengeDTO.class))).thenReturn(challengeDto);
-        when(repository.findByName(challengeName)).thenReturn(Optional.of(challenge));
+        when(repository.findByTitle(challengeName)).thenReturn(Optional.of(challenge));
         ChallengeDTO resultDTO = challengeService.getByName(challengeName);
         assertNotNull(resultDTO);
-        assertEquals(challengeName, resultDTO.getName());
+        assertEquals(challengeName, resultDTO.getTitle());
     }
 
     @Test
     void testGetByNameNotFound() {
         String challengeName = "Desafio nao existente";
 
-        when(repository.findByName(challengeName)).thenReturn(Optional.empty());
+        when(repository.findByTitle(challengeName)).thenReturn(Optional.empty());
 
         assertThrows(EntityNotFoundException.class, () -> {
             challengeService.getByName(challengeName);
