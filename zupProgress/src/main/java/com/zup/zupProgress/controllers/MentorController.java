@@ -1,5 +1,6 @@
 package com.zup.zupProgress.controllers;
 
+import com.zup.zupProgress.dto.MentorDTO;
 import com.zup.zupProgress.model.MentorModel;
 import com.zup.zupProgress.services.MentorService;
 import jakarta.validation.Valid;
@@ -16,8 +17,8 @@ public class MentorController {
     @Autowired
     private MentorService mentorService;
 
-    public ResponseEntity<MentorModel> createMentor(@RequestBody @Valid MentorModel mentor){
-        MentorModel mentorModel = mentorService.createMentor(mentor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(mentorModel);
+    public ResponseEntity<MentorDTO> createMentor(@RequestBody @Valid MentorDTO mentorDTO){
+        MentorDTO mentor = mentorService.createMentor(mentorDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(mentor);
     }
 }
