@@ -24,6 +24,7 @@ class ProjectControllerTest {
     @InjectMocks
     private ProjectController projectController;
 
+    @Mock
     private ObjectMapper objectMapper;
 
     @BeforeEach
@@ -47,9 +48,7 @@ class ProjectControllerTest {
     void testSearchProject() throws Exception {
         String projectName = "TestProject";
         ProjectDTO dto = new ProjectDTO();
-        // Set properties of dto
 
-        // Mocking service behavior
         when(projectService.getByName(projectName)).thenReturn(dto);
 
         ResponseEntity<ProjectDTO> responseEntity = projectController.searchproject(projectName);

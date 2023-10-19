@@ -52,18 +52,16 @@ class ProjectServiceTest {
     void testGetByName() {
         String projectName = "Test Project";
         ProjectModel projectModel = new ProjectModel();
+        ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setName(projectName);
         projectModel.setName(projectName);
 
-        when(modelMapper.map(eq(projectModel), eq(ProjectDTO.class))).thenReturn(new ProjectDTO());
-
+        when(modelMapper.map(eq(projectModel), eq(ProjectDTO.class))).thenReturn(projectDTO);
         when(projectRepository.findByName(projectName)).thenReturn(Optional.of(projectModel));
-
         ProjectDTO resultDTO = projectService.getByName(projectName);
-
         assertNotNull(resultDTO);
         assertEquals(projectName, resultDTO.getName());
     }
-
 
     @Test
     void testGetByNameNotFound() {
