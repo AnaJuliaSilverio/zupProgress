@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface ChallengeRepository extends JpaRepository<ChallengeModel, Long> {
-    Optional<ChallengeModel> findByName(String name);
+    Optional<ChallengeModel> findByTitle(String name);
 }

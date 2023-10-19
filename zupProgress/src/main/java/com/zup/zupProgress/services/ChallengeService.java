@@ -19,13 +19,11 @@ public class ChallengeService {
 
     public ChallengeDTO createChallenge(ChallengeDTO dto){
         ChallengeModel challenge = modelMapper.map(dto, ChallengeModel.class);
-        challenge.setAssessment(Assessment.DO_NOT_EVALUATE);
-        challenge.setTypeOfAssessment(TypeOfAssessment.MENTOR_ASSESSMENT);
         repository.save(challenge);
         return modelMapper.map(challenge, ChallengeDTO.class);
     }
     public ChallengeDTO getByName(String name){
-        ChallengeModel challenge = repository.findByName(name)
+        ChallengeModel challenge = repository.findByTitle(name)
                 .orElseThrow(()-> new EntityNotFoundException());
         return modelMapper.map(challenge, ChallengeDTO.class);
 
