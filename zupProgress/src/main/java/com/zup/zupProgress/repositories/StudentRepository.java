@@ -11,7 +11,6 @@ import java.util.Optional;
 @Repository
 public interface StudentRepository  extends JpaRepository<StudentModel, Long>{
 
-    @Query("SELECT p FROM student s WHERE s.name = :name")
     Optional<StudentModel> findByName(@Param("name") String name);
 
 }

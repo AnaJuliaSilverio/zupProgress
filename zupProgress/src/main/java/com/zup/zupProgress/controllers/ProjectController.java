@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+
 @RestController
 @RequestMapping("/projects")
+@CrossOrigin("*")
 public class ProjectController {
     @Autowired
     private ProjectService service;
@@ -25,5 +28,9 @@ public class ProjectController {
     public ResponseEntity<ProjectDTO> searchproject(@PathVariable @NotNull String name){
         ProjectDTO project = service.getByName(name);
         return ResponseEntity.ok(project);
+    }
+    @GetMapping
+    public List<String> getAllProjectName(){
+        return service.getAllProjectName();
     }
 }
