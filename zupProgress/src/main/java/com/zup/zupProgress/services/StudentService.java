@@ -43,7 +43,13 @@ public class StudentService {
 
     public StudentDTO findByName(String name) {
         StudentModel studentModel = studentRepository.findByName(name).orElseThrow(() -> new EntityNotFoundException());
-        return modelMapper.map(studentModel, StudentDTO.class);
+
+        String mentorName = studentModel.getFkMentor().getName();
+        String projectName = studentModel.getFkProject().getName();
+        StudentDTO studentDTO = modelMapper.map(studentModel, StudentDTO.class);
+        studentDTO.setMentor(mentorName);
+        studentDTO.setProject(projectName);
+        return studentDTO;
     }
 
 
