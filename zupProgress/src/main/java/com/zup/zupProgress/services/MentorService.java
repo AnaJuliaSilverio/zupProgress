@@ -7,6 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MentorService {
     @Autowired
@@ -19,5 +21,11 @@ public class MentorService {
 
         MentorModel mentorSaved = mentorRepository.save(mentorModel);
         return modelMapper.map(mentorSaved, MentorDTO.class);
+    }
+    public List<String> getAllMentorName(){
+        return mentorRepository.getAllMentorName();
+    }
+    public MentorModel findByName(String name){
+        return mentorRepository.findByName(name);
     }
 }

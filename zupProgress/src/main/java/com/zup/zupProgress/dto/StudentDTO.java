@@ -12,25 +12,27 @@ import java.time.LocalDate;
 public class StudentDTO {
 
     private Long idStudent;
-
+    @NotNull
+    private Integer age;
+    @NotBlank
+    private String bio;
+    @NotBlank
+    private String city;
+    @NotNull
+    private LocalDate contract_end;
+    @NotBlank
+    private String email;
+    private String project;
+    private String mentor;
     @NotBlank
     private String name;
     @NotBlank
-    private Integer age;
-    @NotBlank
-    private String city;
-    @NotBlank
-    private String email;
+    private String pcd;
+    private String typeOfDisability;
     @NotBlank
     private String image;
-    @NotBlank
-    private String bio;
-    @NotNull
-    private Boolean pcd;
-    @NotBlank
-    private String typeOfDisability;
-    @NotNull
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate contract_end;
+
+
+
 
 }

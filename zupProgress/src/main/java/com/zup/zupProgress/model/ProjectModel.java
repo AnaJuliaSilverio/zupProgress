@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "projects")
-@Entity(name = "Projects")
+@Table(name = "project")
+@Entity()
 @Getter
 @Setter
 @NoArgsConstructor

@@ -1,6 +1,8 @@
 package com.zup.zupProgress.services;
 
 import com.zup.zupProgress.dto.StudentDTO;
+import com.zup.zupProgress.model.MentorModel;
+import com.zup.zupProgress.model.ProjectModel;
 import com.zup.zupProgress.model.StudentModel;
 import com.zup.zupProgress.repositories.StudentRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -15,12 +17,22 @@ public class StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private MentorService mentorService;
+    @Autowired
+    private ProjectService projectService;
 
     @Autowired
     private ModelMapper modelMapper;
 
     public StudentDTO save(StudentDTO studentDTO) {
-        StudentModel studentModel = modelMapper.map(studentDTO, StudentModel.class);
+        MentorModel mentor = mentorService.findByName(studentDTO.getMentor());
+        ProjectModel project = modelMapper.map(projectService.getByName(studentDTO.getProject()), ProjectModel.class);
+        StudentModel studentModel = new StudentModel();
+        studentModel.setFkMentor(mentor);
+        studentModel.setFkProject(project);
+
+        modelMapper.map(studentDTO,studentModel);
         StudentModel studentSaved = studentRepository.save(studentModel);
         return modelMapper.map(studentSaved, StudentDTO.class);
     }
@@ -31,7 +43,13 @@ public class StudentService {
 
     public StudentDTO findByName(String name) {
         StudentModel studentModel = studentRepository.findByName(name).orElseThrow(() -> new EntityNotFoundException());
-        return modelMapper.map(studentModel, StudentDTO.class);
+
+        String mentorName = studentModel.getFkMentor().getName();
+        String projectName = studentModel.getFkProject().getName();
+        StudentDTO studentDTO = modelMapper.map(studentModel, StudentDTO.class);
+        studentDTO.setMentor(mentorName);
+        studentDTO.setProject(projectName);
+        return studentDTO;
     }
 
 

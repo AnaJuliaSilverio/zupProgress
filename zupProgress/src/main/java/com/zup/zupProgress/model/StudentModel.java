@@ -41,7 +41,7 @@ public class StudentModel {
     private String bio;
 
     @Column(nullable = false)
-    private Boolean pcd;
+    private String pcd;
 
     @Column(nullable = false)
     private String typeOfDisability;

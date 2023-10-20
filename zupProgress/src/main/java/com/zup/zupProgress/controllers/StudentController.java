@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/students")
+@CrossOrigin("*")
 public class StudentController {
     @Autowired
     StudentService studentService;
@@ -21,9 +22,9 @@ public class StudentController {
     @PostMapping
     public ResponseEntity<Object> createStudent(@RequestBody @Valid StudentDTO studentDTO) {
         StudentDTO newStudent = studentService.save(studentDTO);
+        System.out.println(newStudent.toString());
         return ResponseEntity.status(HttpStatus.CREATED).body(newStudent);
     }
-
     @GetMapping("/{name}")
     public ResponseEntity<StudentDTO> getStudentByName(@PathVariable(value = "name") String name) {
         StudentDTO studentDTO = studentService.findByName(name);
