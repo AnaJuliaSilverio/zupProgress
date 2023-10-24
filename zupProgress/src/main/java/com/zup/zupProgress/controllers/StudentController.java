@@ -36,25 +36,11 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.OK).body(studentService.findAll());
     }
 
-    @PutMapping("/{name}")
-    public ResponseEntity<Object> updateStudent(@PathVariable(value = "name") String name, @RequestBody @Valid StudentDTO studentDTO) {
-
-        Optional<StudentDTO> studentModelOptional = Optional.ofNullable(studentService.findByName(name));
-
-        var studentModel = studentModelOptional.get();
-
-        studentModel.setName(studentDTO.getName());
-        studentModel.setAge(studentDTO.getAge());
-        studentModel.setCity(studentDTO.getCity());
-        studentModel.setEmail(studentDTO.getEmail());
-        studentModel.setImage(studentDTO.getImage());
-        studentModel.setBio(studentDTO.getBio());
-        studentModel.setPcd(studentDTO.getPcd());
-
-        studentModel.setTypeOfDisability(studentDTO.getTypeOfDisability());
-        studentModel.setContract_end(studentDTO.getContract_end());
-
-        return ResponseEntity.status(HttpStatus.OK).body(studentService.save(studentModel));
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateStudent(@PathVariable(value = "id") Long id, @RequestBody @Valid StudentDTO studentDTO) {
+        StudentDTO dto = studentService.updateDTO(id, studentDTO);
+        return ResponseEntity.ok(dto);
     }
+
 
 }

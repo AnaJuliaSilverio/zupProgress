@@ -29,7 +29,7 @@ public class StudentDTO {
     @NotBlank
     private String pcd;
     private String typeOfDisability;
-    @NotBlank
+
     private String image;
 
 
