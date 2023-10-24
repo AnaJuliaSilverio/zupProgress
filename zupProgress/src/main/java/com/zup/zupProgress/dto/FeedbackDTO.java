@@ -16,10 +16,10 @@ public class FeedbackDTO {
     private Long id;
     @Enumerated(EnumType.STRING)
     private TypeOfAssessment type;
-    @NotBlank
     private String description;
     @NotBlank
     private String atributes;
     @NotBlank
     private String status;
+
 }
