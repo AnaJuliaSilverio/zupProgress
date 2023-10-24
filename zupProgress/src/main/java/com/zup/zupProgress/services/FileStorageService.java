@@ -51,4 +51,14 @@ public class FileStorageService {
             throw new RuntimeException("Arquivo não encontrado");
         }
     }
+
+    public String updateFile(String fileName, MultipartFile file){
+        try {
+            Path filePath = this.finaStorageLocation.resolve(fileName).normalize();
+            Files.delete(filePath);
+            return storeFile(file);
+        }catch (Exception e){
+            throw new RuntimeException("Não foi poosivel salvar o arquivo");
+        }
+    }
 }
