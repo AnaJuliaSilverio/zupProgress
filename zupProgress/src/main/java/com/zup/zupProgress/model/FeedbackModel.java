@@ -24,4 +24,7 @@ public class FeedbackModel {
     @OneToOne
     @JoinColumn(name = "fk_challenge")
     private ChallengeModel challengeModel;
+    @OneToOne
+    @JoinColumn(name = "fk_student")
+    private StudentModel studentModel;
 }

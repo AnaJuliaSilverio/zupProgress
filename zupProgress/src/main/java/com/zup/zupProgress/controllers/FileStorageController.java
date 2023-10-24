@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.File;
+import java.nio.file.Path;
+
 @RestController
 @RequestMapping("/file")
 @CrossOrigin("*")
@@ -29,6 +32,16 @@ public class FileStorageController {
         return new UploadFileDTO(fileName,fileDownloadUri,file.getContentType(),file.getSize());
 
     }
+    @PutMapping("/{filename:.+}")
+    public UploadFileDTO updateFile(@PathVariable String filename,@RequestParam("file")MultipartFile newFile){
+        var fileName = fileStorageService.updateFile(filename,newFile);
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/file/download/")
+                .path(fileName)
+                .toUriString();
+        return new UploadFileDTO(fileName,fileDownloadUri,newFile.getContentType(),newFile.getSize());
+    }
+
 
     @GetMapping("/download/{filename:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String filename, HttpServletRequest request){

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -50,6 +51,27 @@ public class StudentService {
         studentDTO.setMentor(mentorName);
         studentDTO.setProject(projectName);
         return studentDTO;
+    }
+
+    public StudentDTO updateDTO(Long id,StudentDTO studentDTO){
+        StudentModel studentModel = studentRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Estudante não encontrado"));
+
+
+        studentModel.setName(studentDTO.getName());
+        studentModel.setAge(studentDTO.getAge());
+        studentModel.setCity(studentDTO.getCity());
+        studentModel.setEmail(studentDTO.getEmail());
+        studentModel.setImage(studentDTO.getImage());
+        studentModel.setBio(studentDTO.getBio());
+        studentModel.setPcd(studentDTO.getPcd());
+
+        studentModel.setTypeOfDisability(studentDTO.getTypeOfDisability());
+        studentModel.setContract_end(studentDTO.getContract_end());
+
+        StudentModel saved = studentRepository.save(studentModel);
+
+         return modelMapper.map(saved,StudentDTO.class);
+
     }
 
 

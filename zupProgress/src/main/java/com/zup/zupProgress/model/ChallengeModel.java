@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "challenge")
 @Getter
@@ -19,5 +21,4 @@ public class ChallengeModel {
     private Long id;
     @Column(nullable = false)
     private String title;
-    //private Student student;
 }
