@@ -15,4 +15,7 @@ public interface ProjectRepository extends JpaRepository<ProjectModel, Long> {
     @Query("SELECT p.name FROM ProjectModel p")
     List<String> getAllProjectName();
 
+    @Query("SELECT s.name FROM StudentModel s JOIN s.fkProject p WHERE p.name = :projectName")
+    List<String> findStudentNamesByProjectName(String projectName);
+
 }

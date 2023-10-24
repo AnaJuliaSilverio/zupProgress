@@ -24,10 +24,10 @@ public class ProjectController {
         URI address = uriBuilder.path("/project").buildAndExpand().toUri();
         return ResponseEntity.created(address).body(project);
     }
-    @GetMapping("/{name}")
-    public ResponseEntity<ProjectDTO> searchproject(@PathVariable @NotNull String name){
-        ProjectDTO project = service.getByName(name);
-        return ResponseEntity.ok(project);
+
+    @GetMapping("/{projectName}")
+    public List<String> getStudentsNamesByProject(@PathVariable(value = "projectName") String projectName){
+        return service.studentsNamesByProjectName(projectName);
     }
     @GetMapping
     public List<String> getAllProjectName(){

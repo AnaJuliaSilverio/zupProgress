@@ -44,15 +44,5 @@ class ProjectControllerTest {
         assertEquals(ResponseEntity.created(new URI("/project")).body(dto), responseEntity);
     }
 
-    @Test
-    void testSearchProject() throws Exception {
-        String projectName = "TestProject";
-        ProjectDTO dto = new ProjectDTO();
 
-        when(projectService.getByName(projectName)).thenReturn(dto);
-
-        ResponseEntity<ProjectDTO> responseEntity = projectController.searchproject(projectName);
-
-        assertEquals(ResponseEntity.ok(dto), responseEntity);
-    }
 }
