@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -25,6 +26,11 @@ public class ProjectService {
         ProjectModel project = repository.findByName(name)
                 .orElseThrow(()-> new EntityNotFoundException());
         return modelMapper.map(project, ProjectDTO.class);
+    }
+    public List<String> studentsNamesByProjectName(String name){
+        List<String> studentsNames = repository.findStudentNamesByProjectName(name);
+        Collections.sort(studentsNames);
+        return studentsNames;
     }
     public List<String> getAllProjectName(){
         return repository.getAllProjectName();
