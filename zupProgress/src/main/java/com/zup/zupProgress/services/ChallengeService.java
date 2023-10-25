@@ -10,6 +10,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ChallengeService {
     @Autowired
@@ -26,6 +28,8 @@ public class ChallengeService {
         ChallengeModel challenge = repository.findByTitle(name)
                 .orElseThrow(()-> new EntityNotFoundException());
         return modelMapper.map(challenge, ChallengeDTO.class);
-
+    }
+    public List<String> getAllChallengeTitle(){
+        return repository.getAllChallengeTitle();
     }
 }

@@ -10,8 +10,8 @@ import java.util.List;
 
 @Repository
 public interface FeedbackRepository extends JpaRepository<FeedbackModel,Long> {
-    @Query("SELECT f FROM FeedbackModel f WHERE f.challengeModel.title = :challengeName AND f.type = :feedbackType")
+    @Query("SELECT f FROM FeedbackModel f WHERE f.challengeModel.title = :challengeName AND f.type = :feedbackType AND f.studentModel.name = :studentName")
     List<FeedbackModel> findFeedbackByChallengeNameAndType(
-            String challengeName, TypeOfAssessment feedbackType
+            String challengeName, TypeOfAssessment feedbackType,String studentName
     );
 }
