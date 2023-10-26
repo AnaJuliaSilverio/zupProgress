@@ -28,10 +28,11 @@ public class FeedbackController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedFeedbackList);
     }
 
-    @GetMapping("/{challengeName}/{type}")
-    public ResponseEntity<List<FeedbackDTO>> getFeedbacks( @PathVariable(name = "challengeName") String challengeName, @PathVariable(name = "type") String type){
+    @GetMapping("/{challengeName}/{type}/{studentName}")
+    public ResponseEntity<List<FeedbackDTO>> getFeedbacks( @PathVariable(name = "challengeName") String challengeName,
+                                                           @PathVariable(name = "type") String type,@PathVariable(value = "studentName") String studentName){
         TypeOfAssessment typeOfAssessment = TypeOfAssessment.valueOf(type);
-        List<FeedbackDTO> feedbackByChallengeNameAndType = feedbackService.findFeedbackByChallengeNameAndType(challengeName, typeOfAssessment);
+        List<FeedbackDTO> feedbackByChallengeNameAndType = feedbackService.findFeedbackByChallengeNameAndType(challengeName, typeOfAssessment,studentName);
 
         return ResponseEntity.ok(feedbackByChallengeNameAndType);
 

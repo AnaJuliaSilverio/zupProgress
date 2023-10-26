@@ -38,8 +38,8 @@ public class FeedbackService {
         feedbackRepository.save(feedbackModel);
         return modelMapper.map(feedbackModel, FeedbackDTO.class);
     }
-    public List<FeedbackDTO> findFeedbackByChallengeNameAndType(String challengName, TypeOfAssessment typeOfAssessment){
-        return feedbackRepository.findFeedbackByChallengeNameAndType(challengName,typeOfAssessment)
+    public List<FeedbackDTO> findFeedbackByChallengeNameAndType(String challengName, TypeOfAssessment typeOfAssessment,String studentName){
+        return feedbackRepository.findFeedbackByChallengeNameAndType(challengName,typeOfAssessment,studentName)
                 .stream().map(feedbackModel -> modelMapper.map(feedbackModel,FeedbackDTO.class)).toList();
     }
 }
