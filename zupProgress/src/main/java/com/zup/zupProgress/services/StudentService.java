@@ -52,6 +52,15 @@ public class StudentService {
         studentDTO.setProject(projectName);
         return studentDTO;
     }
+    public StudentDTO findByEmail(String email){
+        StudentModel studentModel = studentRepository.findByEmail(email);
+        String mentorName = studentModel.getFkMentor().getName();
+        String projectName = studentModel.getFkProject().getName();
+        StudentDTO studentDTO = modelMapper.map(studentModel, StudentDTO.class);
+        studentDTO.setMentor(mentorName);
+        studentDTO.setProject(projectName);
+        return studentDTO;
+    }
 
     public StudentDTO updateDTO(Long id,StudentDTO studentDTO){
         StudentModel studentModel = studentRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Estudante não encontrado"));
@@ -71,7 +80,6 @@ public class StudentService {
         StudentModel saved = studentRepository.save(studentModel);
 
          return modelMapper.map(saved,StudentDTO.class);
-
     }
 
 

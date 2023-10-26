@@ -28,9 +28,9 @@ public class FeedbackService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public FeedbackDTO createFeedback(FeedbackDTO feedbackDTO,String challengName,String studentName){
+    public FeedbackDTO createFeedback(FeedbackDTO feedbackDTO,String challengName,String studentEmail){
         ChallengeModel challengeModel = challengeRepository.findByTitle(challengName).orElseThrow(()->new EntityNotFoundException("Desafio não encontrado"));
-        StudentModel student = studentRepository.findByName(studentName).orElseThrow(()->new EntityNotFoundException("Estudante não encontrado"));
+        StudentModel student = studentRepository.findByEmail(studentEmail);
         FeedbackModel feedbackModel = new FeedbackModel();
         feedbackModel.setChallengeModel(challengeModel);
         feedbackModel.setStudentModel(student);

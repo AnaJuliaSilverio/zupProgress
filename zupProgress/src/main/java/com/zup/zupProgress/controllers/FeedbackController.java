@@ -18,11 +18,11 @@ import java.util.List;
 public class FeedbackController {
     @Autowired
     private FeedbackService feedbackService;
-    @PostMapping("/{challengeName}/{studentName}")
-    public ResponseEntity<List<FeedbackDTO>> createFeedbackList(@RequestBody List<FeedbackDTO> feedbackList, @PathVariable(name = "challengeName") String challengeName, @PathVariable(name = "studentName") String studentName) {
+    @PostMapping("/{challengeName}/{studentEmail}")
+    public ResponseEntity<List<FeedbackDTO>> createFeedbackList(@RequestBody List<FeedbackDTO> feedbackList, @PathVariable(name = "challengeName") String challengeName, @PathVariable(name = "studentEmail") String studentEmail) {
         List<FeedbackDTO> savedFeedbackList = new ArrayList<>(); // Crie uma lista para armazenar os feedbacks salvos
         feedbackList.forEach(feedbackDTO -> {
-            FeedbackDTO savedFeedback = feedbackService.createFeedback(feedbackDTO, challengeName, studentName);
+            FeedbackDTO savedFeedback = feedbackService.createFeedback(feedbackDTO, challengeName, studentEmail);
             savedFeedbackList.add(savedFeedback); // Adicione cada feedback salvo à lista
         });
         return ResponseEntity.status(HttpStatus.CREATED).body(savedFeedbackList);
