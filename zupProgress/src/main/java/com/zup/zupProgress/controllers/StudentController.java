@@ -41,6 +41,11 @@ public class StudentController {
         StudentDTO dto = studentService.updateDTO(id, studentDTO);
         return ResponseEntity.ok(dto);
     }
+    @DeleteMapping("/{studentEmail}")
+    public ResponseEntity deleteStudent(@PathVariable(value = "studentEmail") String studentEmail){
+        studentService.deleteStudent(studentEmail);
+        return ResponseEntity.ok().build();
+    }
 
 
 }

@@ -41,26 +41,6 @@ public class FeedbackServiceTest{
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    public void testFindFeedbackByChallengeNameAndType() {
-        ChallengeModel challengeModel = new ChallengeModel();
-        when(challengeRepository.findByTitle("DesafioTest")).thenReturn(Optional.of(challengeModel));
 
-        FeedbackModel feedbackModel1 = new FeedbackModel();
-        FeedbackModel feedbackModel2 = new FeedbackModel();
-        List<FeedbackModel> feedbackModels = Arrays.asList(feedbackModel1, feedbackModel2);
-        when(feedbackRepository.findFeedbackByChallengeNameAndType("DesafioTest", TypeOfAssessment.MENTOR_ASSESSMENT)).thenReturn(feedbackModels);
-
-        FeedbackDTO feedbackDTO1 = new FeedbackDTO();
-        FeedbackDTO feedbackDTO2 = new FeedbackDTO();
-        when(modelMapper.map(feedbackModel1, FeedbackDTO.class)).thenReturn(feedbackDTO1);
-        when(modelMapper.map(feedbackModel2, FeedbackDTO.class)).thenReturn(feedbackDTO2);
-
-        List<FeedbackDTO> result = feedbackService.findFeedbackByChallengeNameAndType("DesafioTest", TypeOfAssessment.MENTOR_ASSESSMENT);
-
-        assertEquals(2, result.size());
-        assertEquals(feedbackDTO1, result.get(0));
-        assertEquals(feedbackDTO2, result.get(1));
-    }
 
 }

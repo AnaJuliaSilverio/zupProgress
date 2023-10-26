@@ -82,6 +82,10 @@ public class StudentService {
          return modelMapper.map(saved,StudentDTO.class);
     }
 
+    public void deleteStudent(String email){
+        StudentModel studentModel = studentRepository.findByEmail(email);
+        studentRepository.delete(studentModel);
+    }
 
 
 
