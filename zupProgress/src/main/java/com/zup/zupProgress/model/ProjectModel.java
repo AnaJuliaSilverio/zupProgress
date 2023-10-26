@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Table(name = "project")
 @Entity()
 @Getter
@@ -19,12 +21,13 @@ public class ProjectModel {
     private Long id_project;
     @NotBlank
     private String name;
-    @NotBlank
     private String description;
-    @NotBlank
+    private String nameInstructor;
+    private String emailInstructor;
+    private String nameLeadership;
+    private String emailLeadership;
     private String trainingInstitution;
-    //private Instructor instructor;
-    //private Leadership leadership;
-
+    private LocalDate startDate;
+    private LocalDate dateEnd;
 
 }
