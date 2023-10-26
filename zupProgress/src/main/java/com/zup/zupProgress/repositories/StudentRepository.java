@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface StudentRepository  extends JpaRepository<StudentModel, Long>{
 
     Optional<StudentModel> findByName(@Param("name") String name);
+    StudentModel findByEmail(String email);
 
 }
 

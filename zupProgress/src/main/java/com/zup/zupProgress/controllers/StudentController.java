@@ -22,12 +22,12 @@ public class StudentController {
     @PostMapping
     public ResponseEntity<Object> createStudent(@RequestBody @Valid StudentDTO studentDTO) {
         StudentDTO newStudent = studentService.save(studentDTO);
-        System.out.println(newStudent.toString());
         return ResponseEntity.status(HttpStatus.CREATED).body(newStudent);
     }
-    @GetMapping("/{name}")
-    public ResponseEntity<StudentDTO> getStudentByName(@PathVariable(value = "name") String name) {
-        StudentDTO studentDTO = studentService.findByName(name);
+
+    @GetMapping("/{email}")
+    public ResponseEntity<StudentDTO> getStudentByEmail(@PathVariable(value = "email") String email) {
+        StudentDTO studentDTO = studentService.findByEmail(email);
         return ResponseEntity.ok(studentDTO);
     }
 
@@ -40,6 +40,11 @@ public class StudentController {
     public ResponseEntity<Object> updateStudent(@PathVariable(value = "id") Long id, @RequestBody @Valid StudentDTO studentDTO) {
         StudentDTO dto = studentService.updateDTO(id, studentDTO);
         return ResponseEntity.ok(dto);
+    }
+    @DeleteMapping("/{studentEmail}")
+    public ResponseEntity deleteStudent(@PathVariable(value = "studentEmail") String studentEmail){
+        studentService.deleteStudent(studentEmail);
+        return ResponseEntity.ok().build();
     }
 
 
