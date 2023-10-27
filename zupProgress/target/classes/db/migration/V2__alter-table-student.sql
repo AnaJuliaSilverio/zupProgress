@@ -1,0 +1,6 @@
+ALTER TABLE student
+DROP COLUMN pcd;
+
+ALTER TABLE student
+ADD COLUMN pcd VARCHAR(10);
+

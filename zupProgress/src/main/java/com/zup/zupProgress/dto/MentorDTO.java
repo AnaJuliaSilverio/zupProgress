@@ -21,10 +21,8 @@ public class MentorDTO {
     @NotBlank
     private String bio;
     @NotNull
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate startMentoring;
     @NotNull
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate endMentoring;
     @NotNull
     private Boolean training;
