@@ -49,20 +49,25 @@ public class FeedbackService {
         List<FeedbackModel> instructorFeedback = feedbackRepository.findFeedbacksByChallengeTitleAndType(title, email, TypeOfAssessment.INSTRUCTOR_EVALUATION);
         List<FeedbackModel> selfFeedback = feedbackRepository.findFeedbacksByChallengeTitleAndType(title, email, TypeOfAssessment.SELF_EVALUATE);
         Map<String, String> conclusion = new HashMap<>();
-        for (String attribute : attributes) {
-            Map<String, Long> statusCountMap = Stream.of(mentorFeedback, instructorFeedback, selfFeedback)
-                    .flatMap(Collection::stream)
-                    .filter(feedback -> feedback.getAtributes().equals(attribute))
-                    .collect(Collectors.groupingBy(FeedbackModel::getStatus, Collectors.counting()));
+        if(mentorFeedback.isEmpty() && instructorFeedback.isEmpty() && selfFeedback.isEmpty()){
+            return new HashMap<>();
+        }else {
+            for (String attribute : attributes) {
+                Map<String, Long> statusCountMap = Stream.of(mentorFeedback, instructorFeedback, selfFeedback)
+                        .flatMap(Collection::stream)
+                        .filter(feedback -> feedback.getAtributes().equals(attribute))
+                        .collect(Collectors.groupingBy(FeedbackModel::getStatus, Collectors.counting()));
 
-            String mostCommonStatus = statusCountMap.entrySet().stream()
-                    .max(Comparator.comparing(Map.Entry::getValue))
-                    .map(Map.Entry::getKey)
-                    .orElse("dentro-esperado");
+                String mostCommonStatus = statusCountMap.entrySet().stream()
+                        .max(Comparator.comparing(Map.Entry::getValue))
+                        .map(Map.Entry::getKey)
+                        .orElse("dentro-esperado");
 
-            conclusion.put(attribute, mostCommonStatus);
+                conclusion.put(attribute, mostCommonStatus);
+            }
+            return conclusion;
         }
-        return conclusion;
+
     }
 
 
