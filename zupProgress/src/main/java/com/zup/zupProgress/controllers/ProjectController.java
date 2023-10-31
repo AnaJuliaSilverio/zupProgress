@@ -1,6 +1,7 @@
 package com.zup.zupProgress.controllers;
 
 import com.zup.zupProgress.dto.ProjectDTO;
+import com.zup.zupProgress.dto.StudentDTO;
 import com.zup.zupProgress.services.ProjectService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -32,5 +33,10 @@ public class ProjectController {
     @GetMapping
     public List<String> getAllProjectName(){
         return service.getAllProjectName();
+    }
+
+    @GetMapping("/get-students/{projectName}")
+    public List<StudentDTO> getStudentsByProject(@PathVariable(value = "projectName") String projectName){
+        return service.studentsByProjectName(projectName);
     }
 }

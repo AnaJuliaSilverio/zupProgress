@@ -1,7 +1,9 @@
 package com.zup.zupProgress.services;
 
 import com.zup.zupProgress.dto.ProjectDTO;
+import com.zup.zupProgress.dto.StudentDTO;
 import com.zup.zupProgress.model.ProjectModel;
+import com.zup.zupProgress.model.StudentModel;
 import com.zup.zupProgress.repositories.ProjectRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +13,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -73,4 +78,29 @@ class ProjectServiceTest {
             projectService.getByName(projectName);
         });
     }
+
+    @Test
+    void testGetAllProjectsName(){
+        when(projectRepository.getAllProjectName()).thenReturn(Collections.singletonList("Estrelas"));
+        List<String> allProjectName = projectService.getAllProjectName();
+        assertEquals("Estrelas",allProjectName.get(0));
+    }
+
+    @Test
+    void studentsNamesByProjectName(){
+        when(projectRepository.findStudentNamesByProjectName("Estrelas")).thenReturn(Collections.singletonList("Ana"));
+        List<String> studentsNamesByProjectName = projectService.studentsNamesByProjectName("Estrelas");
+
+        assertEquals("Ana",studentsNamesByProjectName.get(0));
+    }
+    @Test
+    void studentsByProjectName(){
+        StudentModel studentModel = new StudentModel();
+
+        when(projectRepository.findStudentByProjectName("Estrelas")).thenReturn(Collections.singletonList(studentModel));
+        List<StudentDTO> studentsByProjectName = projectService.studentsByProjectName("Estrelas");
+
+        assertNotNull(studentsByProjectName);
+    }
+
 }

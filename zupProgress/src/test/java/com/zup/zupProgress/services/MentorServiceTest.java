@@ -13,6 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,6 +44,18 @@ public class MentorServiceTest {
         assertEquals(LocalDate.now(),mentor.getStartMentoring());
         assertEquals(LocalDate.now(),mentor.getEndMentoring());
         Assertions.assertTrue(mentor.getTraining());
-
+    }
+    @Test
+    void shouldReturnAllMentorNames(){
+        when(mentorRepository.getAllMentorName()).thenReturn(Collections.singletonList("Elton"));
+        List<String> allMentorName = mentorService.getAllMentorName();
+        assertEquals("Elton",allMentorName.get(0));
+    }
+    @Test
+    void shouldReturnMentor(){
+        MentorModel mentorModel = new MentorModel(1L,"Ana","ana@exemplo.com","Mentor da aluna x", LocalDate.now(),LocalDate.now(),true);
+        when(mentorRepository.findByName("Ana")).thenReturn(mentorModel);
+        MentorModel mentorModel1 = mentorService.findByName("Ana");
+        assertEquals(mentorModel,mentorModel1);
     }
 }

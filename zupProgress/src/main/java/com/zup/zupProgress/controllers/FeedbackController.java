@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/feedback")
@@ -18,11 +19,11 @@ import java.util.List;
 public class FeedbackController {
     @Autowired
     private FeedbackService feedbackService;
-    @PostMapping("/{challengeName}/{studentEmail}")
-    public ResponseEntity<List<FeedbackDTO>> createFeedbackList(@RequestBody List<FeedbackDTO> feedbackList, @PathVariable(name = "challengeName") String challengeName, @PathVariable(name = "studentEmail") String studentEmail) {
+    @PostMapping("/{challengeName}/{name}")
+    public ResponseEntity<List<FeedbackDTO>> createFeedbackList(@RequestBody List<FeedbackDTO> feedbackList, @PathVariable(name = "challengeName") String challengeName, @PathVariable(name = "name") String name) {
         List<FeedbackDTO> savedFeedbackList = new ArrayList<>(); // Crie uma lista para armazenar os feedbacks salvos
         feedbackList.forEach(feedbackDTO -> {
-            FeedbackDTO savedFeedback = feedbackService.createFeedback(feedbackDTO, challengeName, studentEmail);
+            FeedbackDTO savedFeedback = feedbackService.createFeedback(feedbackDTO, challengeName, name);
             savedFeedbackList.add(savedFeedback); // Adicione cada feedback salvo à lista
         });
         return ResponseEntity.status(HttpStatus.CREATED).body(savedFeedbackList);
@@ -35,6 +36,9 @@ public class FeedbackController {
         List<FeedbackDTO> feedbackByChallengeNameAndType = feedbackService.findFeedbackByChallengeNameAndType(challengeName, typeOfAssessment,studentEmail);
 
         return ResponseEntity.ok(feedbackByChallengeNameAndType);
-
+    }
+    @GetMapping("/conclusion/{challengeName}/{studentEmail}")
+    public Map<String,String> getConclusion(@PathVariable(name = "challengeName") String challengeName, @PathVariable(value = "studentEmail") String studentEmail){
+        return feedbackService.conclusionFeedback(challengeName,studentEmail);
     }
 }
