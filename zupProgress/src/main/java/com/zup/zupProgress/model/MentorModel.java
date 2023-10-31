@@ -20,9 +20,7 @@ public class MentorModel {
     private String name;
     private String email;
     private String bio;
-    @Column(name = "start_mentoring")
     private LocalDate startMentoring;
-    @Column(name = "end_mentoring")
     private LocalDate endMentoring;
     private Boolean training;
 
