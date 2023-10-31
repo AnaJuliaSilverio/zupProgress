@@ -16,5 +16,4 @@ public class ProjectDTO {
     private String trainingInstitution;
     private LocalDate startDate;
     private LocalDate dateEnd;
-
 }
