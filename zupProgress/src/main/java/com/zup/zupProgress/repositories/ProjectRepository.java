@@ -1,6 +1,7 @@
 package com.zup.zupProgress.repositories;
 
 import com.zup.zupProgress.model.ProjectModel;
+import com.zup.zupProgress.model.StudentModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,5 +18,8 @@ public interface ProjectRepository extends JpaRepository<ProjectModel, Long> {
 
     @Query("SELECT s.name FROM StudentModel s JOIN s.fkProject p WHERE p.name = :projectName")
     List<String> findStudentNamesByProjectName(String projectName);
+
+    @Query("SELECT s FROM StudentModel s JOIN s.fkProject p WHERE p.name = :projectName")
+    List<StudentModel> findStudentByProjectName(String projectName);
 
 }

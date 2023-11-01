@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name="feedback")
@@ -26,5 +28,6 @@ public class FeedbackModel {
     private ChallengeModel challengeModel;
     @OneToOne
     @JoinColumn(name = "fk_student")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private StudentModel studentModel;
 }

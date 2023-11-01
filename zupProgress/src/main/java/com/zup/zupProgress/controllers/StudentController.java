@@ -36,9 +36,9 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.OK).body(studentService.findAll());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateStudent(@PathVariable(value = "id") Long id, @RequestBody @Valid StudentDTO studentDTO) {
-        StudentDTO dto = studentService.updateDTO(id, studentDTO);
+    @PutMapping("/{studentEmail}")
+    public ResponseEntity<Object> updateStudent(@PathVariable(value = "studentEmail") String email, @RequestBody @Valid StudentDTO studentDTO) {
+        StudentDTO dto = studentService.updateDTO(email, studentDTO);
         return ResponseEntity.ok(dto);
     }
     @DeleteMapping("/{studentEmail}")

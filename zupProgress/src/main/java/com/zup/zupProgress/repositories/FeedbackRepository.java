@@ -14,4 +14,9 @@ public interface FeedbackRepository extends JpaRepository<FeedbackModel,Long> {
     List<FeedbackModel> findFeedbackByChallengeNameAndType(
             String challengeName, TypeOfAssessment feedbackType,String studentEmail
     );
+    @Query("SELECT f FROM FeedbackModel f " +
+            "WHERE f.challengeModel.title = :title " +
+            "AND f.type = :type " +
+            "AND f.studentModel.email = :email")
+    List<FeedbackModel> findFeedbacksByChallengeTitleAndType(String title,String email,TypeOfAssessment type);
 }

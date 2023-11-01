@@ -62,8 +62,8 @@ public class StudentService {
         return studentDTO;
     }
 
-    public StudentDTO updateDTO(Long id,StudentDTO studentDTO){
-        StudentModel studentModel = studentRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Estudante não encontrado"));
+    public StudentDTO updateDTO(String email,StudentDTO studentDTO){
+        StudentModel studentModel = studentRepository.findByEmail(email);
 
 
         studentModel.setName(studentDTO.getName());

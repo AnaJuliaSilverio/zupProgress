@@ -1,7 +1,9 @@
 package com.zup.zupProgress.services;
 
 import com.zup.zupProgress.dto.ProjectDTO;
+import com.zup.zupProgress.dto.StudentDTO;
 import com.zup.zupProgress.model.ProjectModel;
+import com.zup.zupProgress.model.StudentModel;
 import com.zup.zupProgress.repositories.ProjectRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -31,6 +33,12 @@ public class ProjectService {
         List<String> studentsNames = repository.findStudentNamesByProjectName(name);
         Collections.sort(studentsNames);
         return studentsNames;
+    }
+    public List<StudentDTO> studentsByProjectName(String name){
+        List<StudentDTO> students = repository.findStudentByProjectName(name)
+                .stream().map(studentModel -> modelMapper.map(studentModel, StudentDTO.class)).toList();
+
+        return students;
     }
     public List<String> getAllProjectName(){
         return repository.getAllProjectName();

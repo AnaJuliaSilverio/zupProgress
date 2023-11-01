@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -69,6 +71,13 @@ class ChallengeServiceTest {
         assertThrows(EntityNotFoundException.class, () -> {
             challengeService.getByName(challengeName);
         });
+    }
+    @Test
+    void testGetAllChallegeTitle(){
+        String challengeTitle = "Desafio 1";
+        when(repository.getAllChallengeTitle()).thenReturn(Collections.singletonList(challengeTitle));
+        List<String> allChallengeTitle = challengeService.getAllChallengeTitle();
+        assertEquals("Desafio 1",allChallengeTitle.get(0));
     }
 
 }
