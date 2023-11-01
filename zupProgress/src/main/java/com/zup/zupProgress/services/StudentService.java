@@ -1,6 +1,7 @@
 package com.zup.zupProgress.services;
 
 import com.zup.zupProgress.dto.StudentDTO;
+import com.zup.zupProgress.exceptionHandler.EmailAlreadyExistsException;
 import com.zup.zupProgress.model.MentorModel;
 import com.zup.zupProgress.model.ProjectModel;
 import com.zup.zupProgress.model.StudentModel;
@@ -27,6 +28,9 @@ public class StudentService {
     private ModelMapper modelMapper;
 
     public StudentDTO save(StudentDTO studentDTO) {
+        if (studentRepository.findByEmail(studentDTO.getEmail())!=null){
+            throw new EmailAlreadyExistsException("Email já cadastrado");
+        }
         MentorModel mentor = mentorService.findByName(studentDTO.getMentor());
         ProjectModel project = modelMapper.map(projectService.getByName(studentDTO.getProject()), ProjectModel.class);
         StudentModel studentModel = new StudentModel();
