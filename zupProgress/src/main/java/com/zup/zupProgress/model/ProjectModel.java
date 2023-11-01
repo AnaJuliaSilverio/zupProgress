@@ -21,11 +21,13 @@ public class ProjectModel {
     private Long id_project;
     @NotBlank
     private String name;
+    @OneToOne
+    @JoinColumn(nullable = false, name = "fk_leadership")
+    private LeadershipModel leadership;
+    @OneToOne
+    @JoinColumn(nullable = false, name = "fk_instructor")
+    private InstructorModel instructor;
     private String description;
-    private String nameInstructor;
-    private String emailInstructor;
-    private String nameLeadership;
-    private String emailLeadership;
     private String trainingInstitution;
     private LocalDate startDate;
     private LocalDate dateEnd;

@@ -13,12 +13,7 @@ public class ProjectDTO {
     @NotBlank
     private String name;
     private String description;
-    private String nameInstructor;
-    private String emailInstructor;
-    private String nameLeadership;
-    private String emailLeadership;
     private String trainingInstitution;
     private LocalDate startDate;
     private LocalDate dateEnd;
-
 }
