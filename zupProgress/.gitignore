@@ -3,7 +3,6 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-!zupProgress/target
 
 ### STS ###
 .apt_generated
@@ -13,11 +12,25 @@ target/
 .settings
 .springBeans
 .sts4-cache
-
-IntelliJ IDEA
+### MVN ###
+.mvn
+mvnw
+mvnw.cmd
+### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
 
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
+### VS Code ###
+.vscode/
