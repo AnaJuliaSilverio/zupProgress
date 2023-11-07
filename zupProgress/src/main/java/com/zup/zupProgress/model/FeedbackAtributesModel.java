@@ -1,0 +1,18 @@
+package com.zup.zupProgress.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name="feedback_atributes")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class FeedbackAtributesModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String atributes;
+}
