@@ -6,6 +6,7 @@ import com.zup.zupProgress.model.FeedbackModel;
 import com.zup.zupProgress.model.StudentModel;
 import com.zup.zupProgress.model.TypeOfAssessment;
 import com.zup.zupProgress.repositories.ChallengeRepository;
+import com.zup.zupProgress.repositories.FeedbackAtributesRepository;
 import com.zup.zupProgress.repositories.FeedbackRepository;
 import com.zup.zupProgress.repositories.StudentRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,10 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.modelmapper.ModelMapper;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -36,6 +34,8 @@ public class FeedbackServiceTest{
 
     @Mock
     private FeedbackRepository feedbackRepository;
+    @Mock
+    private FeedbackAtributesRepository feedbackAtributesRepository;
 
     @Mock
     private ChallengeRepository challengeRepository;
@@ -73,6 +73,34 @@ public class FeedbackServiceTest{
         assertEquals("Feedback Tets",feedback.get(0).getDescription());
         assertEquals("Racicinio",feedback.get(0).getAtributes());
         assertEquals("Acima do esperado",feedback.get(0).getStatus());
+    }
+    @Test
+    void testConclusionFeedback() {
+
+        when(feedbackAtributesRepository.getAllFeedbackAtributesNames())
+                .thenReturn(Arrays.asList("Attribute1", "Attribute2"));
+        ChallengeModel challengeModel = new ChallengeModel(1L, "Desafio 1");
+
+
+        FeedbackModel mentorFeedback = new FeedbackModel(1L,TypeOfAssessment.MENTOR_ASSESSMENT,"descrição do feedback", "Attribute1", "status1",challengeModel,new StudentModel());
+        FeedbackModel instructorFeedback1 = new FeedbackModel(1L,TypeOfAssessment.INSTRUCTOR_EVALUATION, "descrição do feedback","Attribute1", "status3",challengeModel,new StudentModel());
+        FeedbackModel selfFeedback1 = new FeedbackModel(1L,TypeOfAssessment.SELF_EVALUATE,"descrição do feedback", "Attribute1","status1",challengeModel,new StudentModel());
+
+        when(feedbackRepository.findFeedbacksByChallengeTitleAndType("TestChallenge", "test@email.com", TypeOfAssessment.MENTOR_ASSESSMENT))
+                .thenReturn(List.of(mentorFeedback));
+        when(feedbackRepository.findFeedbacksByChallengeTitleAndType("TestChallenge", "test@email.com", TypeOfAssessment.INSTRUCTOR_EVALUATION))
+                .thenReturn(Collections.singletonList(instructorFeedback1));
+        when(feedbackRepository.findFeedbacksByChallengeTitleAndType("TestChallenge", "test@email.com", TypeOfAssessment.SELF_EVALUATE))
+                .thenReturn(Collections.singletonList(selfFeedback1));
+
+
+        Map<String, String> conclusion = feedbackService.conclusionFeedback("TestChallenge", "test@email.com");
+
+        assertEquals(2, conclusion.size());
+        assertEquals("status1", conclusion.get("Attribute1"));
+        assertEquals("dentro-esperado", conclusion.get("Attribute2"));
+
+
     }
 
 }
