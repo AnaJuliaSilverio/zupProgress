@@ -2,6 +2,7 @@ package com.zup.zupProgress.services;
 
 import com.zup.zupProgress.dto.ProjectDTO;
 import com.zup.zupProgress.dto.StudentDTO;
+import com.zup.zupProgress.exceptionHandler.EmailAlreadyExistsException;
 import com.zup.zupProgress.model.ProjectModel;
 import com.zup.zupProgress.model.StudentModel;
 import com.zup.zupProgress.repositories.ProjectRepository;
@@ -20,13 +21,16 @@ public class ProjectService {
     @Autowired
     private ModelMapper modelMapper;
     public ProjectDTO createProject(ProjectDTO dto){
+        if (repository.findByName(dto.getName()).isPresent()){
+            throw new EmailAlreadyExistsException("Nome já cadastrado");
+        }
         ProjectModel project = modelMapper.map(dto, ProjectModel.class);
         repository.save(project);
         return modelMapper.map(project, ProjectDTO.class);
     }
     public ProjectDTO getByName(String name){
         ProjectModel project = repository.findByName(name)
-                .orElseThrow(()-> new EntityNotFoundException());
+                .orElseThrow(EntityNotFoundException::new);
         return modelMapper.map(project, ProjectDTO.class);
     }
     public List<String> studentsNamesByProjectName(String name){

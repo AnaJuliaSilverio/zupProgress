@@ -21,14 +21,22 @@ public class FeedbackController {
     private FeedbackService feedbackService;
     @PostMapping("/{challengeName}/{name}")
     public ResponseEntity<List<FeedbackDTO>> createFeedbackList(@RequestBody List<FeedbackDTO> feedbackList, @PathVariable(name = "challengeName") String challengeName, @PathVariable(name = "name") String name) {
-        List<FeedbackDTO> savedFeedbackList = new ArrayList<>(); // Crie uma lista para armazenar os feedbacks salvos
+        List<FeedbackDTO> savedFeedbackList = new ArrayList<>();
         feedbackList.forEach(feedbackDTO -> {
             FeedbackDTO savedFeedback = feedbackService.createFeedback(feedbackDTO, challengeName, name);
-            savedFeedbackList.add(savedFeedback); // Adicione cada feedback salvo à lista
+            savedFeedbackList.add(savedFeedback);
         });
         return ResponseEntity.status(HttpStatus.CREATED).body(savedFeedbackList);
     }
-
+    @PostMapping("/forms/{challengeName}/{studentEmail}")
+    public ResponseEntity<List<FeedbackDTO>> createFeedbackListStudent(@RequestBody List<FeedbackDTO> feedbackList, @PathVariable(name = "challengeName") String challengeName, @PathVariable(value = "studentEmail") String studentEmail) {
+        List<FeedbackDTO> savedFeedbackList = new ArrayList<>();
+        feedbackList.forEach(feedbackDTO -> {
+            FeedbackDTO savedFeedback = feedbackService.createFeedbackForm(feedbackDTO, challengeName, studentEmail);
+            savedFeedbackList.add(savedFeedback);
+        });
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedFeedbackList);
+    }
     @GetMapping("/{challengeName}/{type}/{studentEmail}")
     public ResponseEntity<List<FeedbackDTO>> getFeedbacks( @PathVariable(name = "challengeName") String challengeName,
                                                            @PathVariable(name = "type") String type,@PathVariable(value = "studentEmail") String studentEmail){

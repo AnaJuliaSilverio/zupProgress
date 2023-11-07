@@ -1,6 +1,7 @@
 package com.zup.zupProgress.services;
 
 import com.zup.zupProgress.dto.MentorDTO;
+import com.zup.zupProgress.exceptionHandler.EmailAlreadyExistsException;
 import com.zup.zupProgress.model.MentorModel;
 import com.zup.zupProgress.repositories.MentorRepository;
 import org.modelmapper.ModelMapper;
@@ -17,6 +18,9 @@ public class MentorService {
     private ModelMapper modelMapper;
 
     public MentorDTO createMentor(MentorDTO mentorDTO){
+        if (mentorRepository.findByEmail(mentorDTO.getEmail())!=null){
+            throw new EmailAlreadyExistsException("Email já cadastrado");
+        }
         MentorModel mentorModel = modelMapper.map(mentorDTO, MentorModel.class);
 
         MentorModel mentorSaved = mentorRepository.save(mentorModel);
