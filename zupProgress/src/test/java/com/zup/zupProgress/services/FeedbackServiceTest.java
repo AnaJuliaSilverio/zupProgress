@@ -56,6 +56,14 @@ public class FeedbackServiceTest{
         assertEquals(TypeOfAssessment.INSTRUCTOR_EVALUATION,feedback.getType());
     }
     @Test
+    void testCreateFeedbackForm(){
+        FeedbackDTO feedbackDTO=new FeedbackDTO(1L,TypeOfAssessment.INSTRUCTOR_EVALUATION,"Feedback Tets","Racicinio","Acima do esperado");
+        when(challengeRepository.findByTitle("Desafio")).thenReturn(Optional.of(new ChallengeModel()));
+        when((studentRepository.findByEmail("teste@gmail.com"))).thenReturn(new StudentModel());
+        FeedbackDTO feedback = feedbackService.createFeedbackForm(feedbackDTO, "Desafio", "teste@gmail.com");
+        assertEquals(TypeOfAssessment.INSTRUCTOR_EVALUATION,feedback.getType());
+    }
+    @Test
     void shouldThrowAExceptionChallengeNotFound(){
         FeedbackDTO feedbackDTO=new FeedbackDTO(1L,TypeOfAssessment.INSTRUCTOR_EVALUATION,"Feedback Tets","Racicinio","Acima do esperado");
         when(challengeRepository.findByTitle("Desafio")).thenReturn(Optional.empty());

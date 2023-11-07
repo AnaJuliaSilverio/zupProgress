@@ -39,6 +39,16 @@ public class FeedbackService {
         feedbackRepository.save(feedbackModel);
         return modelMapper.map(feedbackModel, FeedbackDTO.class);
     }
+    public FeedbackDTO createFeedbackForm(FeedbackDTO feedbackDTO,String challengName,String studentEmail){
+        ChallengeModel challengeModel = challengeRepository.findByTitle(challengName).orElseThrow(()->new EntityNotFoundException("Desafio não encontrado"));
+        StudentModel student = studentRepository.findByEmail(studentEmail);
+        FeedbackModel feedbackModel = new FeedbackModel();
+        feedbackModel.setChallengeModel(challengeModel);
+        feedbackModel.setStudentModel(student);
+        modelMapper.map(feedbackDTO,feedbackModel);
+        feedbackRepository.save(feedbackModel);
+        return modelMapper.map(feedbackModel, FeedbackDTO.class);
+    }
     public List<FeedbackDTO> findFeedbackByChallengeNameAndType(String challengName, TypeOfAssessment typeOfAssessment,String studentEmail){
         return feedbackRepository.findFeedbackByChallengeNameAndType(challengName,typeOfAssessment,studentEmail)
                 .stream().map(feedbackModel -> modelMapper.map(feedbackModel,FeedbackDTO.class)).toList();
@@ -61,7 +71,7 @@ public class FeedbackService {
                 String mostCommonStatus = statusCountMap.entrySet().stream()
                         .max(Comparator.comparing(Map.Entry::getValue))
                         .map(Map.Entry::getKey)
-                        .orElse("dentro-esperado");
+                        .orElse("Dentro do esperado");
 
                 conclusion.put(attribute, mostCommonStatus);
             }
