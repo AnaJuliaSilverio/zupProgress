@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -57,5 +58,16 @@ public class MentorServiceTest {
         when(mentorRepository.findByName("Ana")).thenReturn(mentorModel);
         MentorModel mentorModel1 = mentorService.findByName("Ana");
         assertEquals(mentorModel,mentorModel1);
+    }
+
+    @Test
+    public void testFindAllMentor() {
+
+        List<MentorModel> mentorModel = new ArrayList<>();
+        when(mentorRepository.findAll()).thenReturn(mentorModel);
+
+        List<MentorModel> rs = mentorService.findAll();
+
+        assertEquals(mentorModel, rs);
     }
 }

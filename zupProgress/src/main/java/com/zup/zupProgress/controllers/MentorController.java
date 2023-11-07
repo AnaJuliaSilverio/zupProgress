@@ -26,4 +26,12 @@ public class MentorController {
     public List<String> getAllMentorName(){
         return mentorService.getAllMentorName();
     }
+
+    @GetMapping
+    public ResponseEntity<List<MentorModel>> getAllMentor() {
+        return ResponseEntity.status(HttpStatus.OK).body(mentorService.findAll());
+    }
+
+
 }
+

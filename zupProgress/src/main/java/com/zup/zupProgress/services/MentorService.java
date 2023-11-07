@@ -28,4 +28,11 @@ public class MentorService {
     public MentorModel findByName(String name){
         return mentorRepository.findByName(name);
     }
+
+    public List<MentorModel> findAll() {
+        return mentorRepository.findAll();
+    }
+
+
 }
+
