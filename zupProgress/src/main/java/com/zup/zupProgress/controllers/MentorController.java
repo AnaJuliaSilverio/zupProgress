@@ -27,11 +27,10 @@ public class MentorController {
         return mentorService.getAllMentorName();
     }
 
-    @GetMapping
-    public ResponseEntity<List<MentorModel>> getAllMentor() {
-        return ResponseEntity.status(HttpStatus.OK).body(mentorService.findAll());
+    @GetMapping("/{name}")
+    public ResponseEntity<MentorModel> getMentor(@PathVariable(name = "name") String mentorName) {
+        return ResponseEntity.status(HttpStatus.OK).body(mentorService.findByName(mentorName));
     }
-
 
 }
 
