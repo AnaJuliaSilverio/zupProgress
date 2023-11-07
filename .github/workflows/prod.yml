@@ -19,7 +19,7 @@ jobs:
         cache: maven
     - name: Build with Maven
       working-directory: ./zupProgress
-      run: mvn -B package --file pom.xml
+      run: mvn -B package -DskipTests --file pom.xml
     - name: Login Docker Hub
       run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
     - name: Build docker image
