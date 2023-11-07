@@ -1,0 +1,40 @@
+name: Deploy Application
+
+on:
+  push:
+    branches: [ "master" ]
+  
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      working-directory: ./zupProgress
+      run: mvn -B package --file pom.xml
+    - name: Login Docker Hub
+      run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+    - name: Build docker image
+      run: docker build -t ajalves1911/myproject .
+    - name: Push image docker
+      run: docker push ajalves1911/myproject
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull image from docker hub
+        run: docker pull ajalves1911/myproject:latest
+      - name: Remove docker container
+        run: docker rm -f myproject
+      - name: Run docker container
+        run: docker-compose up -d --build
+
