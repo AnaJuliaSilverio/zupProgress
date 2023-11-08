@@ -39,5 +39,5 @@ jobs:
       - name: Run docker container
         run: |
           ls
-          docker compose build
+          docker-compose --build
 
