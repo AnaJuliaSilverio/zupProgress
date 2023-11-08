@@ -36,12 +36,5 @@ jobs:
       - name: Remove docker container
         run: docker rm -f myproject
       - name: Run docker container
-        run: |
-          ls zupProgres
-          cd ..
-          pwd
-          ls
-          cd ..
-          pwd
-          docker-compose up -d --build
+        run: docker-compose up -d --build
 
