@@ -2,7 +2,7 @@ name: Deploy Application
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "teste_cd" ]
   
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
         cache: maven
     - name: Build with Maven
       working-directory: ./zupProgress
-      run: mvn -B package -DskipTests --file pom.xml
+      run: mvn -B package --file pom.xml
     - name: Login Docker Hub
       run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
     - name: Build docker image
@@ -34,13 +34,11 @@ jobs:
       - name: Pull image from docker hub
         run: docker pull ajalves1911/myproject:latest
       - name: Remove docker container
-        run: docker rm -f zup_progres
+        run: docker rm -f myproject
       - name: Run docker container
+        working-directory: ./zupProgress
         run: |
-          pwd 
           cd ..
-          pwd
-          cd ..
-          pwd
+          ls
           docker-compose up -d --build
 
