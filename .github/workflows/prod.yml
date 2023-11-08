@@ -39,5 +39,8 @@ jobs:
         run: |
           pwd 
           cd ..
-          docker-compose up -d --build
+          pwd
+          cd ..
+          pwd
+          docker compose -f docker-compose.yml up -d --build
 
