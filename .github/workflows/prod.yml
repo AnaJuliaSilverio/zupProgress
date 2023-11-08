@@ -42,5 +42,5 @@ jobs:
           pwd
           cd ..
           pwd
-          docker compose up -d --build
+          docker-compose up -d --build
 
