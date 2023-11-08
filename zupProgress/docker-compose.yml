@@ -4,6 +4,6 @@ services:
   java_app:
     container_name: zup_progres
     image: myproject
-    build: .
+    build: ..
     ports:
       - 8080:8080
