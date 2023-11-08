@@ -37,11 +37,11 @@ jobs:
         run: docker rm -f myproject
       - name: Run docker container
         run: |
+          ls zupProgres
           cd ..
           pwd
           ls
           cd ..
           pwd
-          ls
           docker-compose up -d --build
 
