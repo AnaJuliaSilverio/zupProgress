@@ -36,5 +36,7 @@ jobs:
       - name: Remove docker container
         run: docker rm -f zup_progres
       - name: Run docker container
-        run: docker-compose up -d --build
+        run: |
+          cd ..
+          docker-compose -f docker-compose.yml up -d --build
 
