@@ -34,7 +34,7 @@ jobs:
       - name: Pull image from docker hub
         run: docker pull ajalves1911/myproject:latest
       - name: Remove docker container
-        run: docker rm -f myproject
+        run: docker rm -f zup_progres
       - name: Run docker container
         run: docker-compose up -d --build
 
