@@ -38,6 +38,10 @@ jobs:
       - name: Run docker container
         run: |
           cd ..
+          pwd
+          ls
+          cd ..
+          pwd
           ls
           docker-compose up -d --build
 
