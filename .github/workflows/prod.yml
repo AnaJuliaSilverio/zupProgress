@@ -38,5 +38,6 @@ jobs:
       - name: Run docker container
         run: |
           pwd 
-          docker-compose -f docker-compose.yml up -d --build
+          cd ..
+          docker-compose up -d --build
 
