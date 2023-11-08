@@ -23,6 +23,7 @@ jobs:
     - name: Login Docker Hub
       run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
     - name: Build docker image
+      working-directory: ./zupProgress
       run: docker build -t ajalves1911/myproject .
     - name: Push image docker
       run: docker push ajalves1911/myproject
@@ -34,6 +35,7 @@ jobs:
       - name: Pull image from docker hub
         run: docker pull ajalves1911/myproject:latest
       - name: Remove docker container
+        working-directory: ./zupProgress 
         run: docker rm -f myproject
       - name: Run docker container
         run: docker-compose up -d --build
