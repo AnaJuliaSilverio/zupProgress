@@ -37,5 +37,5 @@ jobs:
       - name: Remove docker container
         run: docker rm -f zup_progres
       - name: Run docker container
-        run: docker run -d -p 8080:80 --name zup_progres ajalves1911/myproject
+        run: docker run -d -p 8080:8080 --name zup_progres ajalves1911/myproject
 
