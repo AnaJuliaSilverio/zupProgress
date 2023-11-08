@@ -36,7 +36,6 @@ jobs:
       - name: Remove docker container
         run: docker rm -f myproject
       - name: Run docker container
-        working-directory: ./zupProgress
         run: |
           cd ..
           ls
