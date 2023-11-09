@@ -2,7 +2,7 @@ name: Deploy Application
 
 on:
   push:
-    branches: [ "teste_cd" ]
+    branches: [ "master" ]
   
 jobs:
   build:
