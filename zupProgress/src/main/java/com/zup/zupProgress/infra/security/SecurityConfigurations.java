@@ -29,7 +29,7 @@ public class SecurityConfigurations {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/students").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,"/file/uploadFile").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,"/challenge").hasRole("ADMIN")
