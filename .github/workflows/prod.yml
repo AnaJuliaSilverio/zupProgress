@@ -8,7 +8,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 17
@@ -19,10 +19,11 @@ jobs:
         cache: maven
     - name: Build with Maven
       working-directory: ./zupProgress
-      run: mvn -B package -DskipTests --file pom.xml
+      run: mvn -B package -DskipTests  --file pom.xml
     - name: Login Docker Hub
       run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
     - name: Build docker image
+      working-directory: ./zupProgress
       run: docker build -t ajalves1911/myproject .
     - name: Push image docker
       run: docker push ajalves1911/myproject
@@ -36,11 +37,5 @@ jobs:
       - name: Remove docker container
         run: docker rm -f zup_progres
       - name: Run docker container
-        run: |
-          pwd 
-          cd ..
-          pwd
-          cd ..
-          pwd
-          docker-compose up -d --build
+        run: docker run -d -p 8080:8080 --name zup_progres ajalves1911/myproject
 
